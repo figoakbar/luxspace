@@ -1,6 +1,11 @@
 import React from 'react'
 
 export default function BrowseRoom() {
+  
+  React.useEffect(() => {
+    
+  }, [])
+  
   return (
     <section className="flex bg-gray-100 py-16 px-4" id="browse-the-room">
       <div className="container mx-auto">
