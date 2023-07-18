@@ -1,7 +1,9 @@
+import { API_URL, DEBUG_MODE } from "../../../config";
+
 export default function fetchData({
     url, 
     method = 'GET', 
-    host = import.meta.env.REACT_APP_API_HOST
+    host = API_URL
 }){
     return fetch(`${host}${url}`, {
         method, mode: "cors", headers: {"Content-Type": "application/json"}

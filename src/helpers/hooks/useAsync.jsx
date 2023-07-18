@@ -25,9 +25,8 @@ export default function useAsync(initialState) {
             safeSetState({status: "pending"})
             return promise.then( data => {
                 safeSetState({data, status: "resolved"})
-            
                 return data
-            }, error => {
+            }, (error) => {
                 safeSetState({ status: "rejected", error: JSON.parse(error.message)})
             })
         },
