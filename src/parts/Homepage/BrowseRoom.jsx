@@ -2,6 +2,9 @@ import React, {useEffect} from 'react'
 import useAsync from '../../helpers/hooks/useAsync'
 
 import fetch from '../../helpers/fetch'
+
+
+
 export default function BrowseRoom() {
   const {data, status, error, run, isLoading} = useAsync({ data: {username: ""} })
   
@@ -57,7 +60,9 @@ export default function BrowseRoom() {
                 />
               </div>
               <div
-                className="overlay left-0 top-0 bottom-0 flex justify-center flex-col pl-48 md:pl-72"
+                className={`overlay ${
+                  ratioClassNames?.meta?.[item.ratio.md]}
+                  `}
               >
                 <h5 className="text-lg font-semibold">{item.title}</h5>
                 <span className="">IDR {item.products} item{item.products > 1 ? "s" : ""}</span>
