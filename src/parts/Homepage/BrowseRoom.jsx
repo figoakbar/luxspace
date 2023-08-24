@@ -3,10 +3,58 @@ import useAsync from '../../helpers/hooks/useAsync'
 
 import fetch from '../../helpers/fetch'
 
+function Loading({ratio = {}}) {
+  const dummy = [
+    {
+      "id": 1,
+      "ratio": {
+          "default": "1/9",
+          "md": "1/4"
+      }
+  },
+  {
+      "id": 2,
+      "ratio": {
+          "default": "1/9",
+          "md": "2/2"
+      }
+  },
+  {
+      "id": 3,
+      "ratio": {
+          "default": "1/9",
+          "md": "2/3"
+      }
+  },
+  {
+      "id": 4,
+      "ratio": {
+          "default": "1/9",
+          "md": "1/4"
+      }
+  }
+  ];
+  return dummy.map((item, index) => {
+    return <div key={item.id}
+    className={`relative card ${
+      ratio?.wrapper.default?.[item.ratio.default]}
+      ${ratio?.wrapper.md?.[item.ratio.md]}
+      `}
+    style={{height: index === 0 ? 180 : "auto"}}
+    >
+      <div className="bg-gray-300 rounded-lg w-full h-full">
+        <div className={`overlay ${ratio?.meta?.[item.ratio.md]}`}>
+          <div className="w-24 h-3 bg-gray-400 mt-3 rounded-full"></div>
+          <div className="w-36 h-3 bg-gray-400 mt-2 rounded-full"></div>
 
+        </div>
+      </div>
+    </div>
+  })
+}
 
 export default function BrowseRoom() {
-  const {data, status, error, run, isLoading} = useAsync({ data: {username: ""} })
+  const {data, status, error, run, isLoading} = useAsync()
   
   useEffect(() => {
     run(fetch({url: "/api/categories/?page=1&limit=4"}));
@@ -43,7 +91,7 @@ export default function BrowseRoom() {
         </div>
         <div className="grid grid-rows-2 grid-cols-9 gap-4">
           {
-            isLoading ? "Loading" : 
+            isLoading ? (<Loading ratio={ratioClassNames}/>) : 
             data.data?.map((item,index) => {
               return <div key={item.id}
               className={`relative card ${
